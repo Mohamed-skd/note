@@ -52,7 +52,7 @@ class NotesCtrl extends DB
   function getCats()
   {
     try {
-      $this->cats = array_values(array_unique(array_map(fn ($note) => $note->cat, $this->notes)));
+      $this->cats = array_values(array_filter(array_unique(array_map(fn ($note) => $note->cat, $this->notes))));
     } catch (Exception $err) {
       return $this->error($err);
     }
@@ -76,10 +76,12 @@ class NotesCtrl extends DB
 
       $createdAt = $dateFn->formatDate(format: "Y-m-d");
       $this->req("INSERT INTO notes (noteContent, noteAuthor, noteCat, noteCreatedAt) VALUES (?,?,?,?)", [$content, $this->user->name, $cat, $createdAt]);
+      $this->getAll();
+      $this->getCats();
     } catch (Exception $err) {
       return $this->error($err);
     }
-    return $this->getAll();
+    return $this;
   }
   /**
    * Update note
@@ -98,10 +100,12 @@ class NotesCtrl extends DB
 
       $updatedAt = $dateFn->formatDate(format: "Y-m-d");
       $this->req("UPDATE notes SET noteContent=?, noteCat=?, noteUpdatedAt=?", [$content, $cat, $updatedAt]);
+      $this->getAll();
+      $this->getCats();
     } catch (Exception $err) {
       return $this->error($err);
     }
-    return $this->getAll();
+    return $this;
   }
   /**
    * Delete note
@@ -116,10 +120,12 @@ class NotesCtrl extends DB
       if (!$id) return $this;
 
       $this->req("DELETE FROM notes WHERE noteId=?", [$id]);
+      $this->getAll();
+      $this->getCats();
     } catch (Exception $err) {
       return $this->error($err);
     }
-    return $this->getAll();
+    return $this;
   }
 
   /**

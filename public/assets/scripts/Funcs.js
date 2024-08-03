@@ -687,6 +687,34 @@ export class Dom extends Base {
 
     return res;
   }
+
+  /**
+   * Remove children of a DOM element
+   * @param {HTMLElement} parent
+   */
+  removeChildren(parent) {
+    while (parent.firstElementChild) {
+      parent.firstElementChild.remove();
+    }
+  }
+
+  /**
+   * Prepend Html string in DOM element
+   * @param {HTMLElement} parent
+   * @param {String} html
+   */
+  prependHtml(parent, html) {
+    parent.insertAdjacentHTML("afterbegin", html);
+  }
+
+  /**
+   * Append Html string in DOM element
+   * @param {HTMLElement} parent
+   * @param {String} html
+   */
+  appendHtml(parent, html) {
+    parent.insertAdjacentHTML("beforeend", html);
+  }
 }
 export class Fetch extends Base {
   constructor() {

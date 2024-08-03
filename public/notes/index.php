@@ -12,6 +12,8 @@ require_once "./ctrl.php";
 
   <main>
     <section>
+      <h2><?= $currentUser->name ?></h2>
+
       <form method="post" target="_self" class="form">
         <textarea name="note" cols="18" rows="6" maxlength="1000" placeholder="Nouvelle note ..."></textarea>
 
@@ -26,15 +28,20 @@ require_once "./ctrl.php";
       </form>
 
       <div id="notes">
+        <h3><?= $currentCat ?></h3>
+
         <nav>
           <input type="search" name="search" placeholder="Chercher ...">
 
           <button id="tog-cats" title="Catégories"></button>
           <div>
             <ul>
+              <li>
+                <a target="_self" href="?cat" class="link">Toute</a>
+              </li>
               <?php foreach ($cats as &$cat) : ?>
               <li>
-                <a href="?cat=<?= $cat ?>" class="link"><?= $cat ?></a>
+                <a target="_self" href="?cat=<?= $cat ?>" class="link"><?= $cat ?></a>
               </li>
               <?php endforeach ?>
             </ul>
@@ -43,7 +50,7 @@ require_once "./ctrl.php";
 
         <div class="grid">
           <?php foreach ($notes as &$note) : ?>
-          <article>
+          <article data-id="<?= $note->id ?>">
             <input type="checkbox" name="select">
             <p class="cat"><?= $note->cat ?></p>
             <p class="content"><?= $note->content ?></p>
