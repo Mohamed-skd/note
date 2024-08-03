@@ -16,8 +16,8 @@ require_once "./ctrl.php";
         <h3>Se connecter</h3>
 
         <form target="_self" method="post" class="form">
-          <input type="text" name="login" placeholder="Nom">
-          <input type="password" name="pwd" placeholder="Mot de passe">
+          <input maxlength="100" type="text" name="login" placeholder="Nom">
+          <input maxlength="100" type="password" name="pwd" placeholder="Mot de passe">
           <button class="bt">Connexion</button>
         </form>
       </article>
@@ -27,8 +27,8 @@ require_once "./ctrl.php";
         <h3>S'inscrire</h3>
 
         <form target="_self" method="post" class="form">
-          <input type="text" name="signup" placeholder="Nom">
-          <input type="password" name="pwd" placeholder="Mot de passe">
+          <input maxlength="100" type="text" name="signup" placeholder="Nom">
+          <input maxlength="100" type="password" name="pwd" placeholder="Mot de passe">
           <button class="bt">Inscription</button>
         </form>
       </article>

@@ -7,3 +7,6 @@ if (!$currentUser) {
 
 $page = basename(__DIR__);
 $title = "Notes";
+
+$notes = $notesCtrl->notes;
+$cats = $notesCtrl->cats;

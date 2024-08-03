@@ -11,7 +11,12 @@ class UsersCtrl extends DB
   function __construct()
   {
     global $envDatas;
-    parent::setDB($envDatas["DB_NAME"], pwd: $envDatas["DB_PASSWORD"]);
+
+    try {
+      parent::setDB($envDatas["DB_NAME"], pwd: $envDatas["DB_PASSWORD"]);
+    } catch (Exception $err) {
+      return $this->error($err);
+    }
   }
   /**
    * Check if user $name exist
