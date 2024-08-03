@@ -33,7 +33,8 @@ abstract class DB extends Base
         self::$db = new PDO(self::$dsn);
       }
     } catch (Exception $err) {
-      return self::error($err);
+      $base = new parent();
+      return $base->error($err);
     }
   }
 

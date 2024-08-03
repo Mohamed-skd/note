@@ -27,3 +27,14 @@ $headStyle = PUBLIC_LINK . "assets/style.css";
 $headScript = PUBLIC_LINK . "assets/script.js";
 $headDesc = "";
 $headIcon = PUBLIC_LINK . "imgs/icon.png";
+
+// ctrls 
+$usersCtrl = new Controller\UsersCtrl();
+$notesCtrl = new Controller\NotesCtrl();
+
+// user 
+$currentUser = isset($_SESSION["user"]) ? new Model\User($_SESSION["user"]["id"], $_SESSION["user"]["name"]) : null;
+
+if (isset($_GET["logout"])) {
+  $usersCtrl->logout();
+}

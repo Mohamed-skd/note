@@ -4,6 +4,8 @@
 @import url("./styles/anims.css");
 
 /* pages */
+@import url("./notes/style.css");
+@import url("./login/style.css");
 @import url("./homepage/style.css");
 
 /* layout */
