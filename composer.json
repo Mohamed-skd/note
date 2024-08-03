@@ -1,0 +1,21 @@
+{
+  "name": "mohsd/php",
+  "autoload": {
+    "psr-4": {
+      "Util\\": "utils/",
+      "Util\\Func\\": "utils/funcs",
+      "Model\\": "models/",
+      "Controller\\": "controllers/"
+    }
+  },
+  "scripts": {
+    "meta": "php utils/Meta.php"
+  },
+  "authors": [
+    {
+      "name": "Mohamed",
+      "email": "contactdiabysn@gmail.com"
+    }
+  ],
+  "require": {}
+}
