@@ -85,21 +85,23 @@ class NotesCtrl extends DB
   }
   /**
    * Update note
+   * @param int $id
    * @param string $content
    * @param ?string $cat
    */
-  function update(string $content, string $cat)
+  function update(int $id, string $content, string $cat)
   {
     global $strFn;
     global $dateFn;
 
     try {
+      $id = $strFn->validateInput($id);
       $content = $strFn->validateInput($content, 1000);
       $cat = $strFn->validateInput($cat);
-      if (!$content) return $this;
+      if (!$id || !$content) return $this;
 
       $updatedAt = $dateFn->formatDate(format: "Y-m-d");
-      $this->req("UPDATE notes SET noteContent=?, noteCat=?, noteUpdatedAt=?", [$content, $cat, $updatedAt]);
+      $this->req("UPDATE notes SET noteContent=?, noteCat=?, noteUpdatedAt=? WHERE noteId=?", [$content, $cat, $updatedAt, $id]);
       $this->getAll();
       $this->getCats();
     } catch (Exception $err) {
@@ -141,7 +143,7 @@ class NotesCtrl extends DB
       if (!$search) return $res;
 
       $res = array_values(array_filter($this->notes, function ($note) use ($search) {
-        return str_contains($note->content, $search);
+        return str_contains(strtolower($note->content), strtolower($search));
       }));
     } catch (Exception $err) {
       return $this->error($err);

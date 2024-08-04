@@ -1,5 +1,5 @@
 {
-  "name": "php",
+  "name": "note",
   "version": "1.0.0",
   "scripts": {
     "meta": "node meta/Meta.js"

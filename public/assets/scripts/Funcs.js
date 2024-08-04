@@ -509,8 +509,8 @@ export class Dom extends Base {
   notify(content, type, delay = 2) {
     try {
       if (typeof content !== "string") throw new Error("Invalid content.");
-      if (typeof type !== "string") throw new Error("Invalid type.");
-      if (typeof delay !== "number") throw new Error("Invalid delay.");
+      if (type && typeof type !== "string") throw new Error("Invalid type.");
+      if (delay && typeof delay !== "number") throw new Error("Invalid delay.");
       const notifications = this.select("#notifications");
       if (!notifications) throw new Error("No root in DOM.");
       const p = this.create("p");

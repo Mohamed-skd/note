@@ -55,6 +55,26 @@ abstract class DB extends Base
   }
 
   /**
+   * Create sql table
+   * @param string $table Table name
+   * @param array $cols Table columns specs ["colname"=>spec, ...]
+   */
+  protected function createTable(string $table, array $cols)
+  {
+    try {
+      $colsStr = "";
+      foreach ($cols as $col => &$spec) {
+        $colsStr .= "$col $spec, ";
+      }
+      $colsStr = substr($colsStr, 0, -2);
+      $res = $this->req("CREATE TABLE IF NOT EXISTS $table ($colsStr)");
+    } catch (Exception $err) {
+      return $this->error($err);
+    }
+    return $res;
+  }
+
+  /**
    * Return sql SELECT query
    * @param string $table Table name
    * @param array $cols Table columns (["col1", "col2", ...] | ["*"])
@@ -208,7 +228,7 @@ abstract class DB extends Base
   protected function deleteTable(string $table)
   {
     try {
-      $res = $this->req("DELETE FROM $table; ALTER TABLE $table AUTO_INCREMENT= 1");
+      $res = $this->req("TRUNCATE TABLE $table");
     } catch (Exception $err) {
       return $this->error($err);
     }

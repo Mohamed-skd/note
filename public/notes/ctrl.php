@@ -36,12 +36,11 @@ function renderNotes(array $notes)
   foreach ($notes as &$note) {
     $res .= " 
       <article  data-id=\"{$note->id}\">
-        <input type=\"checkbox\" name=\"select\">
         <p class=\"cat\">{$note->cat}</p>
         <p class=\"content\">{$note->content}</p>
 
         <aside class=\"flex\">
-        <button class=\"bt edit\">Modifier</button>
+        <button class=\"bt update\">Modifier</button>
         <button class=\"bt delete\">Supprimer</button>
         </aside>
       </article>";
@@ -54,9 +53,9 @@ function respond(Controller\NotesCtrl $res)
 
   try {
     if ($res) {
-      $formCats = renderFormCats($res->cats);
-      $navCats = renderNavCats($res->cats);
-      $resNotes = renderNotes($res->notes);
+      $formCats = trim(renderFormCats($res->cats));
+      $navCats = trim(renderNavCats($res->cats));
+      $resNotes = trim(renderNotes($res->notes));
       $serverFn->resJson([$formCats, $navCats, $resNotes]);
     } else {
       $serverFn->resJson(false);
@@ -66,18 +65,17 @@ function respond(Controller\NotesCtrl $res)
   }
 }
 
-if (isset($_POST["content"])) {
-  $res = $notesCtrl->add($_POST["content"], $_POST["cat"]);
+if (isset($_POST["add"])) {
+  $res = $notesCtrl->add($_POST["add"], $_POST["cat"]);
   respond($res);
-}
-if (isset($_POST["edit"])) {
-  $res = $notesCtrl->update($_POST["edit"], $_POST["cat"]);
-  respond($res);
-}
-if (isset($_POST["delete"])) {
+} elseif (isset($_POST["update"])) {
+  $res = $notesCtrl->update($_POST["update"], $_POST["content"], $_POST["cat"]);
+  $serverFn->resJson(!!$res);
+} elseif (isset($_POST["delete"])) {
   $res = $notesCtrl->delete($_POST["delete"]);
-  respond($res);
+  $serverFn->resJson(!!$res);
 }
+
 
 $currentCat = "Mes notes";
 $notes = $notesCtrl->notes;
@@ -94,5 +92,18 @@ if (isset($_GET["cat"])) {
         return strtolower($note->cat) === strtolower($cat);
       }
     ));
+  }
+}
+if (isset($_POST["search"])) {
+  $search = $strFn->escape($_POST["search"]);
+  if (!$search) {
+    $serverFn->resJson(renderNotes($notes));
+  }
+
+  $res = $notesCtrl->search($_POST["search"]);
+  if ($res) {
+    $serverFn->resJson(renderNotes($res));
+  } else {
+    $serverFn->resJson(false);
   }
 }

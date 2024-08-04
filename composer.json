@@ -1,5 +1,5 @@
 {
-  "name": "mohsd/php",
+  "name": "mohsd/note",
   "autoload": {
     "psr-4": {
       "Util\\": "utils/",

@@ -31,10 +31,13 @@ require_once "./ctrl.php";
         <h3><?= $currentCat ?></h3>
 
         <nav>
-          <input type="search" name="search" placeholder="Chercher ...">
+          <div class="flex">
+            <input type="search" name="search" placeholder="Chercher ...">
+            <button id="tog-cats" class="bt" title="Catégories">
+              < </button>
+          </div>
 
-          <button id="tog-cats" title="Catégories"></button>
-          <div>
+          <div class="cats">
             <ul>
               <li>
                 <a target="_self" href="?cat" class="link">Toute</a>
@@ -51,16 +54,19 @@ require_once "./ctrl.php";
         <div class="grid">
           <?php foreach ($notes as &$note) : ?>
           <article data-id="<?= $note->id ?>">
-            <input type="checkbox" name="select">
             <p class="cat"><?= $note->cat ?></p>
             <p class="content"><?= $note->content ?></p>
 
             <aside class="flex">
-              <button class="bt edit">Modifier</button>
+              <button class="bt update">Modifier</button>
               <button class="bt delete">Supprimer</button>
             </aside>
           </article>
           <?php endforeach ?>
+
+          <?php if (!$notes) : ?>
+          <h3>Aucune notes</h3>
+          <?php endif ?>
         </div>
       </div>
     </section>

@@ -8,19 +8,21 @@ require_once "./ctrl.php";
 
 <body data-page="<?= $page ?>">
   <?php require_once CMPS . "header.php" ?>
+  <?php require_once CMPS . "nav.php" ?>
 
   <main>
     <section>
       <?php if ($usersCtrl->areUsers()) : ?>
-      <article>
-        <h3>Se connecter</h3>
+        <article>
+          <h3>Se connecter</h3>
 
-        <form target="_self" method="post" class="form">
-          <input maxlength="100" type="text" name="login" placeholder="Nom">
-          <input maxlength="100" type="password" name="pwd" placeholder="Mot de passe">
-          <button class="bt">Connexion</button>
-        </form>
-      </article>
+          <form target="_self" method="post" class="form">
+            <input maxlength="100" type="text" name="login" placeholder="Nom">
+            <input maxlength="100" type="password" name="pwd" placeholder="Mot de passe">
+            <button class="bt">Connexion</button>
+          </form>
+          <a target="_self" href="?forget-pwd">Mot de passe oublié</a>
+        </article>
       <?php endif ?>
 
       <article>
