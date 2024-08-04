@@ -1,1 +1,3 @@
-# note
+# Note
+
+Exemple d'usage DB.
