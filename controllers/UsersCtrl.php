@@ -13,7 +13,7 @@ class UsersCtrl extends DB
     global $envDatas;
 
     try {
-      parent::setDB($envDatas["DB_NAME"], pwd: $envDatas["DB_PASSWORD"]);
+      parent::setDB($envDatas["DB_NAME"], host: $envDatas["DB_HOST"], user: $envDatas["DB_USER"], pwd: $envDatas["DB_PASSWORD"]);
     } catch (Exception $err) {
       return $this->error($err);
     }

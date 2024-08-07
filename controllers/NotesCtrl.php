@@ -20,7 +20,7 @@ class NotesCtrl extends DB
     global $currentUser;
 
     try {
-      parent::setDB($envDatas["DB_NAME"], pwd: $envDatas["DB_PASSWORD"]);
+      parent::setDB($envDatas["DB_NAME"], host: $envDatas["DB_HOST"], user: $envDatas["DB_USER"], pwd: $envDatas["DB_PASSWORD"]);
       $this->user = $currentUser;
       $this->getAll();
       $this->getCats();

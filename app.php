@@ -2,7 +2,7 @@
 // CONFIGS 
 define("SITE", "/");
 define("SITE_SRC", $_SERVER["DOCUMENT_ROOT"] . SITE);
-define("SITE_LINK", "http://localhost:8080" . SITE);
+define("SITE_LINK", "https://mohsd-note.rf.gd" . SITE);
 define("VENDOR", SITE_SRC . "vendor/");
 define("STORAGE", SITE_SRC . "storage/");
 define("PUBLIC_SRC", SITE_SRC . "public/");
